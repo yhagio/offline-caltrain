@@ -1,0 +1,28 @@
+{
+  "name": "offline_stm",
+  "version": "1.0.0",
+  "description": "### Important GTFS files are too large to be uploaded to Github, so please [download all the GTFS files](http://www.stm.info/sites/default/files/gtfs/gtfs_stm.zip) and place them in `src/stm-files` locally to run locally.",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yhagio/offline-stm-schedule.git"
+  },
+  "author": "Yuichi Hagio <yhagio87@gmail.com> (http://github.com/yhagio)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yhagio/offline-stm-schedule/issues"
+  },
+  "homepage": "https://github.com/yhagio/offline-stm-schedule#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.6",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify": "0.0.11",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.3"
+  }
+}

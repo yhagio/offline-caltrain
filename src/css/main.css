@@ -1,0 +1,11 @@
+html, body {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.container {
+  padding: 10px;
+}
+
+.result-box {
+  display: none;
+}

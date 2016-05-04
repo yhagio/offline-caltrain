@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Yuichi Hagio">
+    <meta name="description" content="Offline First CALTRAIN Schedule">
+    
+    <!-- DEVELOPMENT: CSS -->
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+
+    <!-- PRODUCTION: CSS -->
+    <link rel="stylesheet" href="css/bundle.min.css">
+
+    <title>Offline CALTRAIN</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>OFFLINE CALTRAIN SCHEDULE</h1>
+
+      <div>
+        <label for="">Departure Stop</label>
+        <select id="departure-stop" name="departure-stop"></select> 
+        <br />
+        <label for="">Arrival Stop</label>
+        <select id="arrival-stop" name="arrival-stop"></select>
+        <br />
+        <input id="find-btn" type="button" value="Search" />  
+
+        <ul id="stops-list"></ul>
+
+        <div class="result-box">
+          <table>
+            <thead>
+              <tr>Departure</tr>
+              <tr>Arrival</tr>
+              <tr>Duration</tr>
+            </thead>
+            <tbody>
+              <!-- Will be generated via Javascript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Javascript CDNJS Files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.8/lovefield.min.js"></script>
+
+    <!-- PouchDB
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/5.3.2/pouchdb.min.js"></script>
+    -->
+
+    <!-- DEVELOPMENT: Javascript files -->
+<!--     <script src="js/index.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/data-handling.js"></script>
+    <script src="js/app-handlers.js"></script> -->
+
+    <!-- PRODUCTION: Javascript files -->
+    <script src="js/bundle.min.js"></script>
+  </body>
+</html>
