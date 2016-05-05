@@ -1,7 +1,7 @@
 // 1. Build schema (getDBConnection)
 // 2. Establish database connection (buildSchema)
 // 3. Retrieve all the tables (onConnected)
-// 4. Import the GTFS data to IndexedDB (insertData
+// 4. Import the GTFS data to IndexedDB (insertData)
 
 var CaltrainData = function() {
   this.db = null;
@@ -10,19 +10,16 @@ var CaltrainData = function() {
 
 CaltrainData.prototype.getDBConnection = function() {
   var self = this;
-  // if (this.db != null) {
-  //   return this.db;
-  // }
-  if (self.db !== null) {
-    return Promise.resolve(self.db);
+  if (this.db != null) {
+    return this.db;
   }
 
   var connectOptions = {storeType: lf.schema.DataStoreType.INDEXED_DB};
   return self.buildSchema().connect(connectOptions).then(function(db) {
     self.db = db;
     self.onConnected();
-    // TODO: Import and Sync the GTFS files
     self.insertData();
+
     return db;
   });
 };
@@ -151,31 +148,55 @@ CaltrainData.prototype.insertData = function() {
     'stops',
     'trips'
   ];
-  var fileName = null;
-  var table = null;
 
-  for(var c = 0; GTFSfiles.length > c; c++) {
+  // var fileName = null
+  var filePathName = null;
 
-    fileName = '../gtfs/' + GTFSfiles[c] + '.txt';
-    table = self.db.getSchema().table(GTFSfiles[c]);
+  GTFSfiles.forEach(function(name, index) {
+    filePathName = '../gtfs/' + name + '.txt';
+    var table = self.db.getSchema().table(name);
 
-    fetch(fileName)
+    fetch(filePathName)
       .then(function(res) {
         return res.text();
       })
       .then(function(data) {
         self.importFromTxtToDB(table, data)
         .then(function() {
-          console.log(fileName+' has been imported!')
+          console.log(name+' has been imported!');
         })
         .catch(function(err) {
-          console.log(fileName+' is not imported. '+err);
+          console.log(name+' is not imported. '+err);
         });
       })
       .catch(function(error) {
         console.log('Error(insertData):\n', error);
       });
-  }
+  });
+
+  // ********* NOT WORKING: FOR LOOP Version **********
+  // for(var c = 0; GTFSfiles.length > c; c++) {
+  //   fileName = GTFSfiles[c];
+  //   filePathName = '../gtfs/' + fileName + '.txt';
+  //   var table = self.db.getSchema().table(GTFSfiles[c]);
+
+  //   fetch(filePathName)
+  //     .then(function(res) {
+  //       return res.text();
+  //     })
+  //     .then(function(data) {
+  //       self.importFromTxtToDB(table, data)
+  //       .then(function() {
+  //         console.log(fileName+' has been imported!')
+  //       })
+  //       .catch(function(err) {
+  //         console.log(fileName+' is not imported. '+err);
+  //       });
+  //     })
+  //     .catch(function(error) {
+        // console.log('Error(insertData):\n', error);
+  //     });
+  // }
 };
 
 CaltrainData.prototype.importFromTxtToDB = function(table, data) {
@@ -187,7 +208,9 @@ CaltrainData.prototype.importFromTxtToDB = function(table, data) {
   var rows = [];
   for(var i = 1; i < lines.length; i++){
     // If the line is empty, skip it
-    if (lines[i].length === 0) continue;
+    if (lines[i].length === 0) {
+      continue;
+    }
     var obj = {};
     var currentline = lines[i].split(",");
 
@@ -207,9 +230,12 @@ CaltrainData.prototype.importFromTxtToDB = function(table, data) {
              .exec();
 };
 
-CaltrainData.prototype.displayStationList = function() {
+CaltrainData.prototype.retrieveStops = function() {
   // Retrieve the stops data and append each as <option> inside <select>
-  return this.db.select().from(this.stops).exec();
+  return this.db.select()
+                .from(this.stops)
+                .orderBy(this.stops.stop_name)
+                .exec();
 };
 
 CaltrainData.prototype.searchSchedule = function() {

@@ -1,23 +1,27 @@
 var CT = new CaltrainData();
 CT.getDBConnection()
-  .then(function(){
+  .then(function(db){
     console.log('Database connected & Schema creation done successfully');
     // CT.insertData();
-    CT.displayStationList()
+
+    setTimeout(function() {
+      CT.retrieveStops()
       .then(function(stops) {
         console.log('stops retrieved');
-
-        stops.forEach(function(d) {
-          $('#departure-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
-          $('#arrival-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
-        });  
+        displayStopsSelection(stops); 
       })
       .catch(function(error) {
         console.log('stops retrieving errors: ', error);
       });
+    }, 200);
   });
 
-
+function displayStopsSelection(stops) {
+  return stops.forEach(function(d) {
+      $('#departure-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
+      $('#arrival-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
+    }); 
+}
 
 /*
 // Search the trip
