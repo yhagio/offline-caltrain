@@ -2,6 +2,7 @@
 // 2. Establish database connection (buildSchema)
 // 3. Retrieve all the tables (onConnected)
 // 4. Import the GTFS data to IndexedDB (insertData)
+// 5. Retrieve stops for users to select (retrieveStops)
 
 var CaltrainData = function() {
   this.db = null;
@@ -149,7 +150,6 @@ CaltrainData.prototype.insertData = function() {
     'trips'
   ];
 
-  // var fileName = null
   var filePathName = null;
 
   GTFSfiles.forEach(function(name, index) {
@@ -173,30 +173,6 @@ CaltrainData.prototype.insertData = function() {
         console.log('Error(insertData):\n', error);
       });
   });
-
-  // ********* NOT WORKING: FOR LOOP Version **********
-  // for(var c = 0; GTFSfiles.length > c; c++) {
-  //   fileName = GTFSfiles[c];
-  //   filePathName = '../gtfs/' + fileName + '.txt';
-  //   var table = self.db.getSchema().table(GTFSfiles[c]);
-
-  //   fetch(filePathName)
-  //     .then(function(res) {
-  //       return res.text();
-  //     })
-  //     .then(function(data) {
-  //       self.importFromTxtToDB(table, data)
-  //       .then(function() {
-  //         console.log(fileName+' has been imported!')
-  //       })
-  //       .catch(function(err) {
-  //         console.log(fileName+' is not imported. '+err);
-  //       });
-  //     })
-  //     .catch(function(error) {
-        // console.log('Error(insertData):\n', error);
-  //     });
-  // }
 };
 
 CaltrainData.prototype.importFromTxtToDB = function(table, data) {

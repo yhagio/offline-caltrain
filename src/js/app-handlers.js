@@ -3,7 +3,9 @@ CT.getDBConnection()
   .then(function(db){
     console.log('Database connected & Schema creation done successfully');
     // CT.insertData();
-
+    
+    // Load stops for users to select for departure and arrival stops
+    // Use setTimeout() to delay make sure insertDate is done beforehand 
     setTimeout(function() {
       CT.retrieveStops()
       .then(function(stops) {
