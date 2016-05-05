@@ -23,7 +23,12 @@ gulp.task('minify-css', function() {
 
 // Minify JavaScript
 gulp.task('minify-js', function() {
-  gulp.src('./src/js/*.js')
+  gulp.src(/*'./src/js/*.js'*/ 
+    ['./src/js/index.js',
+    './src/js/helpers.js',
+    './src/js/indexeddb.js',
+    './src/js/app-caltrain-data.js',
+    './src/js/app-handlers.js'])
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('./dist/js'))
     .pipe(rename('bundle.min.js'))

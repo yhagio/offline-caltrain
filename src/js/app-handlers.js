@@ -1,10 +1,11 @@
-(function(document) {
+// (function(document) {
   var CT = new CaltrainData();
   CT.getDBConnection()
     .then(function(){
-      console.log('DOOOOONE!');
+      console.log('Database connected & Schema creation done successfully');
+      // CT.insertData();
     });
-})(document);
+// })(document);
 
 /*
 fetch(STOPS)

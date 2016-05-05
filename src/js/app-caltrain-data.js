@@ -1,6 +1,7 @@
 // 1. Build schema (getDBConnection)
 // 2. Establish database connection (buildSchema)
 // 3. Retrieve all the tables (onConnected)
+// 4. Import the GTFS data to IndexedDB (insertData
 
 var CaltrainData = function() {
   this.db = null;
@@ -8,23 +9,19 @@ var CaltrainData = function() {
 } 
 
 CaltrainData.prototype.getDBConnection = function() {
+  var self = this;
   if (this.db != null) {
     return this.db;
   }
 
-  // This is necessary for the app to run with 
-  // no errors while
-  var schemaBuilder = this.buildSchema();
-  if (schemaBuilder == null) {
-    return Promise.resolve(null);
-  }
-
   var connectOptions = {storeType: lf.schema.DataStoreType.INDEXED_DB};
   return this.buildSchema().connect(connectOptions).then(function(db) {
-    this.db = db;
-    this.onConnected();
+    self.db = db;
+    self.onConnected();
+    // TODO: Import and Sync the GTFS files
+    self.insertData();
     return db;
-  }.bind(this));
+  });
 };
 
 CaltrainData.prototype.onConnected = function() {
@@ -38,8 +35,7 @@ CaltrainData.prototype.onConnected = function() {
   this.stops = this.db.getSchema().table('stops');
   this.trips = this.db.getSchema().table('trips');
 
-  console.log('DB connection established.');
-  // TODO: Import and Sync the GTFS files
+  console.log('DB connection established');
 }
 
 CaltrainData.prototype.buildSchema = function() {
@@ -60,7 +56,7 @@ CaltrainData.prototype.buildSchema = function() {
 
   schemaBuilder.createTable('calendar_dates').
     addColumn('service_id', lf.Type.STRING).
-    addColumn('date', lf.Type.INTEGER).
+    addColumn('date', lf.Type.STRING).
     addColumn('exception_type', lf.Type.INTEGER).
     addPrimaryKey(['service_id']);
 
@@ -132,10 +128,101 @@ CaltrainData.prototype.buildSchema = function() {
     addColumn('bikes_allowed', lf.Type.INTEGER).
     addPrimaryKey(['route_id']);
 
-  console.log('Schema created!');
+  console.log('Schema created');
   return schemaBuilder;
 };
 
-CaltrainData.prototype.insertData = function(){
+CaltrainData.prototype.insertData = function() {
+  // Fetch all the GTFS files and loop through them.
+  // On reading each file, get the corresponding table and
+  // insert the data to it. If already exists, overwrite it.
+  var self = this;
+  var GTFSfiles = [
+    'calendar',
+    'calendar_dates',
+    'fare_attributes',
+    'fare_rules',
+    'routes',
+    'shapes',
+    'stop_times',
+    'stops',
+    'trips'
+  ];
+  var fileName = null;
+  var table = null;
+
+  for(var c = 0; GTFSfiles.length > c; c++) {
+
+    fileName = '../gtfs/' + GTFSfiles[c] + '.txt';
+    table = self.db.getSchema().table(GTFSfiles[c]);
+
+    fetch(fileName)
+      .then(function(res) {
+        return res.text();
+      })
+      .then(function(data) {
+        self.importFromTxtToDB(table, data)
+        .then(function() {
+          console.log(fileName+' has been imported!')
+        })
+        .catch(function(err) {
+          console.log(fileName+' is not imported. '+err);
+        });
+      })
+      .catch(function(error) {
+        console.log('Error(insertData):\n', error);
+      });
+  }
+};
+
+CaltrainData.prototype.importFromTxtToDB = function(table, data) {
+  // Split the text file data by each line
+  var lines = data.split(/\r\n/);
+  // The first line is the column name of a table
+  var tableColumnNames = lines[0].split(",");
+  // Loop through each line (except the column name line)
+  var rows = [];
+  for(var i = 1; i < lines.length; i++){
+    // If the line is empty, skip it
+    if (lines[i].length === 0) continue;
+    var obj = {};
+    var currentline = lines[i].split(",");
+
+    for(var j = 0; j < tableColumnNames.length; j++){
+      // Trim and remove extra quotations of a string before
+      // storing it to corresponding table row
+      var currentString = currentline[j].trim();
+      // var cleanedUpString = null;
+      // if ( currentString.startsWith('"') ) {
+      //   cleanedUpString = currentString.slice(1, currentString.length - 1);
+      // } else {
+      //   cleanedUpString = currentString;
+      // }
+      obj[ tableColumnNames[j] ] = removeQuotations(currentString); //cleanedUpString;
+    }
+    
+    rows.push(table.createRow(obj));
+  }
+  return this.db
+             .insertOrReplace()
+             .into(table)
+             .values(rows)
+             .exec();
+};
+
+CaltrainData.prototype.displayStationList = function() {
+  // Retrieve the stops data and append each as <option> inside <select>
+};
+
+CaltrainData.prototype.searchSchedule = function() {
 
 };
+
+// Trim and remove extra quotations of a text before
+// storing it to corresponding table row
+function removeQuotations(text) {
+  if ( text.startsWith('"') ) {
+    return text.slice(1, text.length - 1);
+  } 
+  return text;
+}

@@ -28,6 +28,7 @@
 
 - [Lovefield demos](https://github.com/google/lovefield/tree/master/demos)
 - [Lovefield examples](https://github.com/google/lovefield/tree/master/docs/spec)
+- [INSERT query builder](https://github.com/google/lovefield/blob/master/docs/spec/04_query.md#42-insert-query-builder)
 
 ### TODO
 - Save Caltrain data to IndexedDB via Lovefied
