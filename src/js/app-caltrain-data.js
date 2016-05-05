@@ -10,12 +10,15 @@ var CaltrainData = function() {
 
 CaltrainData.prototype.getDBConnection = function() {
   var self = this;
-  if (this.db != null) {
-    return this.db;
+  // if (this.db != null) {
+  //   return this.db;
+  // }
+  if (self.db !== null) {
+    return Promise.resolve(self.db);
   }
 
   var connectOptions = {storeType: lf.schema.DataStoreType.INDEXED_DB};
-  return this.buildSchema().connect(connectOptions).then(function(db) {
+  return self.buildSchema().connect(connectOptions).then(function(db) {
     self.db = db;
     self.onConnected();
     // TODO: Import and Sync the GTFS files
@@ -192,13 +195,7 @@ CaltrainData.prototype.importFromTxtToDB = function(table, data) {
       // Trim and remove extra quotations of a string before
       // storing it to corresponding table row
       var currentString = currentline[j].trim();
-      // var cleanedUpString = null;
-      // if ( currentString.startsWith('"') ) {
-      //   cleanedUpString = currentString.slice(1, currentString.length - 1);
-      // } else {
-      //   cleanedUpString = currentString;
-      // }
-      obj[ tableColumnNames[j] ] = removeQuotations(currentString); //cleanedUpString;
+      obj[ tableColumnNames[j] ] = removeQuotations(currentString);
     }
     
     rows.push(table.createRow(obj));
@@ -212,14 +209,14 @@ CaltrainData.prototype.importFromTxtToDB = function(table, data) {
 
 CaltrainData.prototype.displayStationList = function() {
   // Retrieve the stops data and append each as <option> inside <select>
+  return this.db.select().from(this.stops).exec();
 };
 
 CaltrainData.prototype.searchSchedule = function() {
 
 };
 
-// Trim and remove extra quotations of a text before
-// storing it to corresponding table row
+// Remove starting & ending quotation marks of a string if exists
 function removeQuotations(text) {
   if ( text.startsWith('"') ) {
     return text.slice(1, text.length - 1);

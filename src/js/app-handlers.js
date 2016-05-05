@@ -1,47 +1,25 @@
-// (function(document) {
-  var CT = new CaltrainData();
-  CT.getDBConnection()
-    .then(function(){
-      console.log('Database connected & Schema creation done successfully');
-      // CT.insertData();
-    });
-// })(document);
+var CT = new CaltrainData();
+CT.getDBConnection()
+  .then(function(){
+    console.log('Database connected & Schema creation done successfully');
+    // CT.insertData();
+    CT.displayStationList()
+      .then(function(stops) {
+        console.log('stops retrieved');
+
+        stops.forEach(function(d) {
+          $('#departure-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
+          $('#arrival-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
+        });  
+      })
+      .catch(function(error) {
+        console.log('stops retrieving errors: ', error);
+      });
+  });
+
+
 
 /*
-fetch(STOPS)
-  .then(function(res) {
-    return res.text();
-  })
-  .then(function(data) {
-    var dataJSON = textFileToJSON(data);
-
-    // dataJSON.forEach(function(d) {
-    //   $('#departure-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
-    //   $('#arrival-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
-    // });
-  })
-  .catch(function(error) {
-    console.log('ERROR: ', error);
-  });
-
-var jsonStopTimes;
-fetch(STOP_TIMES)
-  .then(function(res) {
-    console.log('RES!');
-    return res.text();
-  })
-  // .then(function(data) {
-  //   console.log('DATA ...', data);
-  
-    // var dataJSON = textFileToJSON(data);
-    // console.log('dataJSON', dataJSON);
-    // jsonStopTimes = dataJSON;
-  // })
-  .catch(function(error) {
-    console.log('ERROR: ', error);
-  });
-
-
 // Search the trip
 $('#find-btn').click(function(e) {
   debugger;
@@ -64,7 +42,7 @@ $('#find-btn').click(function(e) {
 
   // fetchTextFiles(STOP_TIMES, departure_stop, arrival_stop);
 });
-*/
+
 
 function status(response) {  
   if (response.status >= 200 && response.status < 300) {  
@@ -96,6 +74,7 @@ function fetchTextFiles(file, departure, arrival) {
       console.log('ERROR: ', error);
     });
 }
+*/
 
 function displayResultList(data) {
   data.forEach(function(d) {
