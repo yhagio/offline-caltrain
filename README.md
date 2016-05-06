@@ -31,8 +31,8 @@
 - [INSERT query builder](https://github.com/google/lovefield/blob/master/docs/spec/04_query.md#42-insert-query-builder)
 
 ### TODO
-- Save Caltrain data to IndexedDB via Lovefied
-- Retrieve the data
-- Search the trip & display the result
+- [X] Save Caltrain data to IndexedDB via Lovefied
+- [X] Retrieve the data for stops for users to select
+- [ ] Search the trip & display the result
 
 

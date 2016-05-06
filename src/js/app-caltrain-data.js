@@ -214,8 +214,25 @@ CaltrainData.prototype.retrieveStops = function() {
                 .exec();
 };
 
-CaltrainData.prototype.searchSchedule = function() {
+CaltrainData.prototype.searchSchedule = function(departure, arrival) {
+  // Stops     <== (stop_id)    ==>   StopTimes
+  // StopTimes <== (trip_id)    ==>   Trips
+  // Trips     <== (route_id)   ==>   Routes
+  // Trips     <== (service_id) ==>   CalendarDates
 
+  var Stops = this.stops;
+  var StopTimes = this.stop_times;
+  var Trips = this.trips;
+  var Routes = this.routes;
+  var CalendarDates = this.calendar_dates;
+
+  return this.db.select()
+                .from(Stops, StopTimes)
+                .where(lf.op.and(
+                  Stops.stop_id.eq(departure),
+                  StopTimes.stop_id(departure))
+                )
+                .exec();
 };
 
 // Remove starting & ending quotation marks of a string if exists
