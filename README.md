@@ -15,6 +15,7 @@
 - Visit `http://localhost:8080/`
 
 ### Resources
+- [GTFS Diagram](https://upload.wikimedia.org/wikipedia/commons/2/28/GTFS_class_diagram.svg)
 - [Caltrain GTFS](http://www.caltrain.com/developer.html)
 - [The Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/)
 
@@ -29,6 +30,7 @@
 - [Lovefield demos](https://github.com/google/lovefield/tree/master/demos)
 - [Lovefield examples](https://github.com/google/lovefield/tree/master/docs/spec)
 - [INSERT query builder](https://github.com/google/lovefield/blob/master/docs/spec/04_query.md#42-insert-query-builder)
+- [Query](https://github.com/google/lovefield/blob/master/docs/spec/04_query.md#4-query)
 
 ### TODO
 - [X] Save Caltrain data to IndexedDB via Lovefied

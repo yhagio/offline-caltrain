@@ -28,10 +28,10 @@ CaltrainData.prototype.getDBConnection = function() {
 CaltrainData.prototype.onConnected = function() {
   this.calendar = this.db.getSchema().table('calendar');
   this.calendar_dates = this.db.getSchema().table('calendar_dates');
-  this.fare_attributes = this.db.getSchema().table('fare_attributes');
-  this.fare_rules = this.db.getSchema().table('fare_rules');
+  // this.fare_attributes = this.db.getSchema().table('fare_attributes');
+  // this.fare_rules = this.db.getSchema().table('fare_rules');
   this.routes = this.db.getSchema().table('routes');
-  this.shapes = this.db.getSchema().table('shapes');
+  // this.shapes = this.db.getSchema().table('shapes');
   this.stop_times = this.db.getSchema().table('stop_times');
   this.stops = this.db.getSchema().table('stops');
   this.trips = this.db.getSchema().table('trips');
@@ -61,21 +61,21 @@ CaltrainData.prototype.buildSchema = function() {
     addColumn('exception_type', lf.Type.INTEGER).
     addPrimaryKey(['service_id']);
 
-  schemaBuilder.createTable('fare_attributes').
-    addColumn('fare_id', lf.Type.STRING).
-    addColumn('price', lf.Type.INTEGER).
-    addColumn('currency_type', lf.Type.STRING).
-    addColumn('payment_method', lf.Type.INTEGER).
-    addColumn('transfers', lf.Type.INTEGER).
-    addColumn('transfer_duration', lf.Type.INTEGER). // Blank in file
-    addPrimaryKey(['fare_id']);
+  // schemaBuilder.createTable('fare_attributes').
+  //   addColumn('fare_id', lf.Type.STRING).
+  //   addColumn('price', lf.Type.INTEGER).
+  //   addColumn('currency_type', lf.Type.STRING).
+  //   addColumn('payment_method', lf.Type.INTEGER).
+  //   addColumn('transfers', lf.Type.INTEGER).
+  //   addColumn('transfer_duration', lf.Type.INTEGER). // Blank in file
+  //   addPrimaryKey(['fare_id']);
 
-  schemaBuilder.createTable('fare_rules').
-    addColumn('fare_id', lf.Type.STRING).
-    addColumn('route_id', lf.Type.STRING).
-    addColumn('origin_id', lf.Type.INTEGER).
-    addColumn('destination_id', lf.Type.INTEGER).
-    addPrimaryKey(['fare_id']);
+  // schemaBuilder.createTable('fare_rules').
+  //   addColumn('fare_id', lf.Type.STRING).
+  //   addColumn('route_id', lf.Type.STRING).
+  //   addColumn('origin_id', lf.Type.INTEGER).
+  //   addColumn('destination_id', lf.Type.INTEGER).
+  //   addPrimaryKey(['fare_id']);
 
   schemaBuilder.createTable('routes').
     addColumn('route_id', lf.Type.STRING).
@@ -85,13 +85,13 @@ CaltrainData.prototype.buildSchema = function() {
     addColumn('route_color', lf.Type.STRING).
     addPrimaryKey(['route_id']);
 
-  schemaBuilder.createTable('shapes').
-    addColumn('shape_id', lf.Type.STRING).
-    addColumn('shape_pt_lat', lf.Type.STRING).
-    addColumn('shape_pt_lon', lf.Type.STRING).
-    addColumn('shape_pt_sequence', lf.Type.INTEGER).
-    addColumn('shape_dist_traveled', lf.Type.INTEGER). // Blank in file
-    addPrimaryKey(['shape_id']);
+  // schemaBuilder.createTable('shapes').
+  //   addColumn('shape_id', lf.Type.STRING).
+  //   addColumn('shape_pt_lat', lf.Type.STRING).
+  //   addColumn('shape_pt_lon', lf.Type.STRING).
+  //   addColumn('shape_pt_sequence', lf.Type.INTEGER).
+  //   addColumn('shape_dist_traveled', lf.Type.INTEGER). // Blank in file
+  //   addPrimaryKey(['shape_id']);
 
   schemaBuilder.createTable('stop_times').
     addColumn('trip_id', lf.Type.STRING).
@@ -101,7 +101,7 @@ CaltrainData.prototype.buildSchema = function() {
     addColumn('stop_sequence', lf.Type.INTEGER).
     addColumn('pickup_type', lf.Type.INTEGER).
     addColumn('drop_off_type', lf.Type.INTEGER).
-    addPrimaryKey(['trip_id']);
+    addPrimaryKey(['stop_id','trip_id']);
 
   schemaBuilder.createTable('stops').
     addColumn('stop_id', lf.Type.STRING).
@@ -127,7 +127,7 @@ CaltrainData.prototype.buildSchema = function() {
     addColumn('shape_id', lf.Type.STRING).
     addColumn('wheelchair_accessible', lf.Type.INTEGER).
     addColumn('bikes_allowed', lf.Type.INTEGER).
-    addPrimaryKey(['route_id']);
+    addPrimaryKey(['route_id', 'service_id', 'trip_id']);
 
   console.log('Schema created');
   return schemaBuilder;
@@ -141,10 +141,10 @@ CaltrainData.prototype.insertData = function() {
   var GTFSfiles = [
     'calendar',
     'calendar_dates',
-    'fare_attributes',
-    'fare_rules',
+    // 'fare_attributes',
+    // 'fare_rules',
     'routes',
-    'shapes',
+    // 'shapes',
     'stop_times',
     'stops',
     'trips'
@@ -161,6 +161,7 @@ CaltrainData.prototype.insertData = function() {
         return res.text();
       })
       .then(function(data) {
+        // Convert text files to SQL table format to be inserted to db
         self.importFromTxtToDB(table, data)
         .then(function() {
           console.log(name+' has been imported!');
@@ -208,31 +209,48 @@ CaltrainData.prototype.importFromTxtToDB = function(table, data) {
 
 CaltrainData.prototype.retrieveStops = function() {
   // Retrieve the stops data and append each as <option> inside <select>
-  return this.db.select()
+  // Remove the duplicated station names by using 'lf.fn.distinct()'
+  return this.db.select(lf.fn.distinct(this.stops.stop_name).as('stop_name'))
                 .from(this.stops)
                 .orderBy(this.stops.stop_name)
                 .exec();
 };
 
 CaltrainData.prototype.searchSchedule = function(departure, arrival) {
+  // GTFS Diagram
+  // https://upload.wikimedia.org/wikipedia/commons/2/28/GTFS_class_diagram.svg
+  
   // Stops     <== (stop_id)    ==>   StopTimes
   // StopTimes <== (trip_id)    ==>   Trips
   // Trips     <== (route_id)   ==>   Routes
   // Trips     <== (service_id) ==>   CalendarDates
 
+  console.log('searchSchedule:', departure, arrival);
   var Stops = this.stops;
   var StopTimes = this.stop_times;
   var Trips = this.trips;
-  var Routes = this.routes;
-  var CalendarDates = this.calendar_dates;
+  // var Routes = this.routes;
+  // var CalendarDates = this.calendar_dates;
+  // var Calendar = this.calendar;
 
-  return this.db.select()
-                .from(Stops, StopTimes)
-                .where(lf.op.and(
-                  Stops.stop_id.eq(departure),
-                  StopTimes.stop_id(departure))
+  return this.db.select(
+                  StopTimes.trip_id,
+                  StopTimes.stop_id,
+                  StopTimes.departure_time,
+                  StopTimes.arrival_time,
+                  Stops.stop_name)
+                .from(Stops, StopTimes, Trips)
+                .where(
+                  lf.op.and(
+                    Stops.stop_id.eq(StopTimes.stop_id),
+                    StopTimes.trip_id.eq(Trips.trip_id),
+                    Stops.stop_name.in([departure, arrival])
+                    // Trips.service_id.eq(Today's - weekday/weekend - CalendarDates.service_id)
+                  )
                 )
+                .orderBy(StopTimes.departure_time)
                 .exec();
+
 };
 
 // Remove starting & ending quotation marks of a string if exists

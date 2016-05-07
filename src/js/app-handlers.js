@@ -22,26 +22,24 @@ CT.getDBConnection()
       debugger;
       var departure_stop = $('#departure-stop').val();
       var arrival_stop = $('#arrival-stop').val();
-      
-      console.log(departure_stop, arrival_stop);
-      // Filter
-      // Calculate duration of trips
-      CT.searchSchedule(departure_stop, arrival_stop);
+      // Filter and Calculate duration of trips
+      CT.searchSchedule(departure_stop, arrival_stop)
+        .then(function(results) {
+          console.log(results.length);
+        });
     });
 
   });
 
 function displayStopsSelection(stops) {
   return stops.forEach(function(d) {
-      $('#departure-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
-      $('#arrival-stop').append('<option value="' + d.stop_id + '">' + d.stop_name +'</option>');
+      $('#departure-stop').append('<option value="' + d.stop_name + '">' + d.stop_name +'</option>');
+      $('#arrival-stop').append('<option value="' + d.stop_name + '">' + d.stop_name +'</option>');
     }); 
 }
 
-
-
-
 function displayResultList(data) {
+  console.log('displayResultList\n', data);
   data.forEach(function(d) {
     $('#departure-stop')
       .append(
