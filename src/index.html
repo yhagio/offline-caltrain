@@ -30,14 +30,20 @@
 
         <ul id="stops-list"></ul>
 
-        <div class="result-box">
+        <div id="noresult" class="no-result">
+          <h3>None ...</h3>
+        </div>
+
+        <div id="result" class="result-box">
           <table>
             <thead>
-              <tr>Departure</tr>
-              <tr>Arrival</tr>
-              <tr>Duration</tr>
+              <tr>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Duration</th>
+              </tr>
             </thead>
-            <tbody>
+            <tbody id="search-result">
               <!-- Will be generated via Javascript -->
             </tbody>
           </table>

@@ -6,6 +6,18 @@ html, body {
   padding: 10px;
 }
 
-.result-box {
+table,
+table th,
+table td {
+  border: 1px solid #aaa;
+}
+
+.result-box,
+.no-result {
   display: none;
+}
+
+.result-box.show,
+.no-result.show {
+  display: block;
 }
