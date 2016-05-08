@@ -2,14 +2,12 @@ var CT = new CaltrainData();
 CT.getDBConnection()
   .then(function(db){
     console.log('Database connected & Schema creation done successfully');
-    // CT.insertData();
     
     // Load stops for users to select for departure and arrival stops
     // Use setTimeout() to delay make sure insertDate is done beforehand 
     setTimeout(function() {
       CT.retrieveStops()
       .then(function(stops) {
-        console.log('stops retrieved');
         displayStopsSelection(stops); 
       })
       .catch(function(error) {
@@ -19,21 +17,19 @@ CT.getDBConnection()
 
     // Search the trip
     $('#find-btn').click(function(e) {
+      resetDisplay();
       var departure_stop = $('#departure-stop').val();
       var arrival_stop = $('#arrival-stop').val();
-      // console.log('Clicked: ', departure_stop, arrival_stop);
-      // TODO: 
       // Check if user selects same stations
       // should show error
       if (departure_stop === arrival_stop) {
-        console.log('SAME');
+        displayError();
         return;
       } else {
-        // Filter and Calculate duration of trips
+        // Filter and Calculate duration of trips,
+        // then display the matched schedule
         CT.searchSchedule(departure_stop, arrival_stop)
           .then(function(results) {
-            console.log(results.length);
-
             displayResultList(results, departure_stop, arrival_stop);
           });
       }
@@ -44,13 +40,12 @@ CT.getDBConnection()
 
 function displayStopsSelection(stops) {
   return stops.forEach(function(d) {
-      $('#departure-stop').append('<option value="' + d.stop_name + '">' + d.stop_name +'</option>');
-      $('#arrival-stop').append('<option value="' + d.stop_name + '">' + d.stop_name +'</option>');
-    }); 
+    $('#departure-stop').append('<option value="' + d.stop_name + '">' + d.stop_name +'</option>');
+    $('#arrival-stop').append('<option value="' + d.stop_name + '">' + d.stop_name +'</option>');
+  }); 
 }
 
 function displayResultList(data, departure_stop, arrival_stop) {
-  console.log('displayResultList\n', data);
   // Organize Departure to Arrival station
   var schedules = [];
   var departureData = null;
@@ -74,9 +69,9 @@ function displayResultList(data, departure_stop, arrival_stop) {
         scheduleObject = {
           'departure': departureData.departure_time,
           'arrival': arrivalData.arrival_time,
+          // Calculate duration of trips between departure and arrival
           'duration': getDuration(departureData.departure_time, arrivalData.arrival_time)
         };
-
         schedules.push(scheduleObject);
         departureData = null;
         scheduleObject = null;
@@ -84,13 +79,14 @@ function displayResultList(data, departure_stop, arrival_stop) {
 
   }
 
-  // Calculate duration of trips between departure and arrival
   if (schedules.length > 0) {
+    // Display the matched schedule
 
+    // Show the search result table
     $('#result').addClass('show');
 
+    // Sort the schedule order by departure time and display them
     schedules.sort(sortSchedules).forEach(function(info) {
-      console.log("SORTED", info);
       $('#search-result').append(
         '<tr>' +
           '<td>' + info.departure +'</td>' +
@@ -99,31 +95,19 @@ function displayResultList(data, departure_stop, arrival_stop) {
         '</tr>');
     });
   } else {
+    // No schedule matched
+
+    // Hide Search result table
     if ($('#result').hasClass('show')) {
       $('#result').removeClass('show');
-      $('#noresult').addClass('show');
     }
+    // Show no-result
+    $('#noresult').addClass('show');
   }
 
 }
 
 function getDuration(departure_time, arrival_time) {
-  // var departure = departure_time.split(':');
-  // var arrival = arrival_time.split(':');
-
-  // var dHour = null;
-  // var dMinute = null;
-  // var dSecond = null;
-
-  // dHour = parseInt(departure[0]);
-  // dMinute = parseInt(departure[1]);
-  // dSecond = parseInt(departure[2]);
-  // aHour = parseInt(arrival[0]);
-  // aMinute = parseInt(arrival[1]);
-  // aSecond = parseInt(arrival[2]);
-
-  // var dSec = dHour*60*60 + dMinute*60 + dSecond;
-  // var aSec = aHour*60*60 + aMinute*60 + aSecond;
   var dSec = hhmmssToSeconds(departure_time);
   var aSec = hhmmssToSeconds(arrival_time);
   var duration = (aSec - dSec) / 60 ;
@@ -148,4 +132,26 @@ function hhmmssToSeconds(time) {
   var second = parseInt(t[2]);
 
   return hour*60*60 + minute*60 + second;
+}
+
+function resetDisplay() {
+  // Reset Search Result
+  $('#search-result').empty();
+  // Reset Error
+  $('#error').empty();
+  // Hide no-result
+  if ($('#noresult').hasClass('show')) {
+    $('#noresult').removeClass('show');
+  }
+}
+
+function displayError() {
+  // Diplay the error
+  $('#error').append('<p class="error-msg">Arrival station must be different</p>');
+  // Erase search result
+  $('#search-result').empty();
+  // Hide Search result table
+  if ($('#noresult').hasClass('show')) {
+    $('#noresult').removeClass('show');
+  }
 }

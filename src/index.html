@@ -18,7 +18,8 @@
   <body>
     <div class="container">
       <h1>OFFLINE CALTRAIN SCHEDULE</h1>
-
+      
+      <!-- Stops list -->
       <div>
         <label for="">Departure Stop</label>
         <select id="departure-stop" name="departure-stop"></select> 
@@ -27,27 +28,30 @@
         <select id="arrival-stop" name="arrival-stop"></select>
         <br />
         <input id="find-btn" type="button" value="Search" />  
+      </div>
 
-        <ul id="stops-list"></ul>
+      <!-- Error -->
+      <div id="error"></div>
 
-        <div id="noresult" class="no-result">
-          <h3>None ...</h3>
-        </div>
-
-        <div id="result" class="result-box">
-          <table>
-            <thead>
-              <tr>
-                <th>Departure</th>
-                <th>Arrival</th>
-                <th>Duration</th>
-              </tr>
-            </thead>
-            <tbody id="search-result">
-              <!-- Will be generated via Javascript -->
-            </tbody>
-          </table>
-        </div>
+      <!-- When no schedule matched -->
+      <div id="noresult" class="no-result">
+        <h3>None ...</h3>
+      </div>
+      
+      <!-- Display the schedule table -->
+      <div id="result" class="result-box">
+        <table>
+          <thead>
+            <tr>
+              <th>Departure Time</th>
+              <th>Arrival Time</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody id="search-result">
+            <!-- Search result will be generated via Javascript -->
+          </tbody>
+        </table>
       </div>
 
     </div>
@@ -56,15 +60,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.8/lovefield.min.js"></script>
 
-    <!-- PouchDB
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/5.3.2/pouchdb.min.js"></script>
-    -->
-
     <!-- DEVELOPMENT: Javascript files -->
-<!--     <script src="js/index.js"></script>
+    <!--   
     <script src="js/helpers.js"></script>
-    <script src="js/data-handling.js"></script>
-    <script src="js/app-handlers.js"></script> -->
+    <script src="js/indexeddb.js"></script>  
+    <script src="js/index.js"></script>
+    <script src="js/app-caltrain-data.js"></script>
+    <script src="js/app-handlers.js"></script> 
+    -->
 
     <!-- PRODUCTION: Javascript files -->
     <script src="js/bundle.min.js"></script>

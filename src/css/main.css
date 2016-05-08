@@ -21,3 +21,7 @@ table td {
 .no-result.show {
   display: block;
 }
+
+.error-msg {
+  color: red;
+}

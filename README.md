@@ -35,6 +35,7 @@
 ### TODO
 - [X] Save Caltrain data to IndexedDB via Lovefied
 - [X] Retrieve the data for stops for users to select
-- [ ] Search the trip & display the result
+- [X] Search the trip & display the result
+- [ ] Styling
 
 

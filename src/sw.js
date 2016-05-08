@@ -60,30 +60,11 @@ self.addEventListener('activate', function(event) {
 this.addEventListener('fetch', function(event) {
 
   event.respondWith(
-    // 4. Respond with an entry from the cache if there is one.
+    // Respond with an entry from the cache if there is one.
     // If there isn't, fetch from the network.
     caches.match(event.request).then(function(response) {
-      // console.log('FETCH RES: ', response);
       if (response) return response;
       return fetch(event.request);
     })
-
-    // 3. Custom error messages (event.request)
-    // fetch('https://media.giphy.com/media/MDJcGiy1WOqOc/giphy.gif').then(function(response) {
-    //   if (response.status == 404) {
-    //     return new Response('Oops, not found.')
-    //   }
-    //   return response;
-    // }).catch(function() {
-    //   return new Response('Oh no! Cannot get it.')
-    // })
-
-    // 2. Respond with image by fetching it
-    // fetch('http://lorempixel.com/400/200/sports/1/Dummy-Text/')
-
-    // 1. Responds with html 
-    // new Response('<p style="color: red">Hola</p>', {
-    //   headers: {'Content-Type': 'text/html'}
-    // })
   );
 });
