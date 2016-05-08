@@ -143,7 +143,7 @@ CaltrainData.prototype.insertData = function() {
     'calendar_dates',
     // 'fare_attributes',
     // 'fare_rules',
-    'routes',
+    // 'routes',
     // 'shapes',
     'stop_times',
     'stops',
@@ -224,32 +224,45 @@ CaltrainData.prototype.searchSchedule = function(departure, arrival) {
   // StopTimes <== (trip_id)    ==>   Trips
   // Trips     <== (route_id)   ==>   Routes
   // Trips     <== (service_id) ==>   CalendarDates
+  // Trips     <== (service_id) ==>   Calendar
 
   console.log('searchSchedule:', departure, arrival);
   var Stops = this.stops;
   var StopTimes = this.stop_times;
   var Trips = this.trips;
   // var Routes = this.routes;
-  // var CalendarDates = this.calendar_dates;
-  // var Calendar = this.calendar;
+  var CalendarDates = this.calendar_dates;
+  var Calendar = this.calendar;
+  var thisMoment = new Date();
 
-  return this.db.select(
-                  StopTimes.trip_id,
-                  StopTimes.stop_id,
-                  StopTimes.departure_time,
-                  StopTimes.arrival_time,
-                  Stops.stop_name)
-                .from(Stops, StopTimes, Trips)
-                .where(
-                  lf.op.and(
-                    Stops.stop_id.eq(StopTimes.stop_id),
-                    StopTimes.trip_id.eq(Trips.trip_id),
-                    Stops.stop_name.in([departure, arrival])
-                    // Trips.service_id.eq(Today's - weekday/weekend - CalendarDates.service_id)
-                  )
-                )
-                .orderBy(StopTimes.departure_time)
-                .exec();
+  // TODO:
+  // Check if this moment is between start & end date from Calendar
+  // Check if this moment is weekday or saturday or sunday
+  // Check if today is not exception day from CalendarDates
+  // Get the service id to return the one that is shared in Trips
+
+  return this
+          .db
+          .select(
+            StopTimes.trip_id,
+            StopTimes.stop_id,
+            StopTimes.departure_time,
+            StopTimes.arrival_time,
+            Stops.stop_name)
+          .from(Stops, StopTimes, Trips)
+          .where(
+            lf.op.and(
+              // Find the shared ids
+              Stops.stop_id.eq(StopTimes.stop_id),
+              StopTimes.trip_id.eq(Trips.trip_id),
+              // Array of departure and arrival stations
+              Stops.stop_name.in([departure, arrival])
+              // Make sure today's service is correct
+              // Trips.service_id.eq(Today's - weekday/sat/sun - CalendarDates.service_id)
+            )
+          )
+          .orderBy(StopTimes.departure_time)
+          .exec();
 
 };
 
@@ -259,4 +272,14 @@ function removeQuotations(text) {
     return text.slice(1, text.length - 1);
   } 
   return text;
+}
+
+function whatDayIsToday(date) {
+  if (date != 6 && date != 0) {
+    return 'weekday';
+  } 
+  if (date == 6) {
+    return 'saturday';
+  }
+  return 'sunday';
 }

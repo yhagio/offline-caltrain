@@ -26,6 +26,7 @@ CT.getDBConnection()
       CT.searchSchedule(departure_stop, arrival_stop)
         .then(function(results) {
           console.log(results.length);
+          displayResultList(results);
         });
     });
 

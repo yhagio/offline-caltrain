@@ -1,4 +1,4 @@
-var STATIC_CACHE_NAME = 'stm-data-1';
+var STATIC_CACHE_NAME = 'caltrain-1';
 
 this.addEventListener('install', function(event) {
   var urlsToCache = [
@@ -14,7 +14,6 @@ this.addEventListener('install', function(event) {
     '/gtfs/trips.txt',
     'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.8/lovefield.min.js'
-    // 'https://cdn.jsdelivr.net/pouchdb/5.3.2/pouchdb.min.js'
   ];
 
   event.waitUntil(
@@ -33,7 +32,6 @@ this.addEventListener('install', function(event) {
         '/gtfs/trips.txt',
         'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.8/lovefield.min.js'
-        // 'https://cdn.jsdelivr.net/pouchdb/5.3.2/pouchdb.min.js'
       ]);
     })
   );
