@@ -233,37 +233,43 @@ CaltrainData.prototype.searchSchedule = function(departure, arrival) {
   // var Routes = this.routes;
   var CalendarDates = this.calendar_dates;
   var Calendar = this.calendar;
-  var thisMoment = new Date();
 
-  // TODO:
-  // Check if this moment is between start & end date from Calendar
-  // Check if this moment is weekday or saturday or sunday
-  // Check if today is not exception day from CalendarDates
-  // Get the service id to return the one that is shared in Trips
+  var today = new Date();
+  var formattedDate = formatDate(today);
+  var todayDay = whatDayIsToday(today);
 
   return this
           .db
           .select(
+            // get the data set we need to display
             StopTimes.trip_id,
             StopTimes.stop_id,
             StopTimes.departure_time,
             StopTimes.arrival_time,
             Stops.stop_name)
-          .from(Stops, StopTimes, Trips)
+          .from(Stops, StopTimes, Trips, Calendar, CalendarDates)
           .where(
             lf.op.and(
               // Find the shared ids
               Stops.stop_id.eq(StopTimes.stop_id),
               StopTimes.trip_id.eq(Trips.trip_id),
               // Array of departure and arrival stations
-              Stops.stop_name.in([departure, arrival])
-              // Make sure today's service is correct
-              // Trips.service_id.eq(Today's - weekday/sat/sun - CalendarDates.service_id)
+              Stops.stop_name.in([departure, arrival]),   
+              // Make sure which service is available today.
+              // Check if today is between start & end date from Calendar
+              Calendar.start_date.lte(formattedDate),
+              Calendar.end_date.gte(formattedDate),
+              // Check if today is weekday or saturday or sunday
+              Calendar[todayDay].eq(1),
+              // Check if today is not exception day from CalendarDates
+              CalendarDates.exception_type.neq(2),
+              // Get the service id to return the one that is shared in Trips
+              Trips.service_id.eq(CalendarDates.service_id)
             )
           )
+          // Order by departure time
           .orderBy(StopTimes.departure_time)
           .exec();
-
 };
 
 // Remove starting & ending quotation marks of a string if exists
@@ -273,13 +279,43 @@ function removeQuotations(text) {
   } 
   return text;
 }
-
+// Determine today is weekday, saturday, or sunday
 function whatDayIsToday(date) {
-  if (date != 6 && date != 0) {
-    return 'weekday';
-  } 
-  if (date == 6) {
-    return 'saturday';
+  switch(date.getDay()){
+    case 0:
+      return 'sunday';
+    case 1:
+      return 'monday';
+    case 2:
+      return 'tuesday';
+    case 3:
+      return 'wednesday';
+    case 4:
+      return 'thursday';
+    case 5:
+      return 'friday';
+    case 6:
+      return 'saturday';
   }
-  return 'sunday';
+}
+// Format date to yyyymmdd
+function formatDate(date) {
+  var month = '';
+  var day = '';
+
+  var year = date.getFullYear().toString();
+
+  if (date.getMonth() < 9) {
+    month = '0' + parseInt(date.getMonth() + 1).toString();
+  } else {
+    month = parseInt(date.getMonth() + 1).toString();
+  }
+
+  if (date.getDate() < 10) {
+    day = '0' + date.getDate();
+  } else {
+    day = date.getDate().toString();
+  }
+
+  return year + month + day;
 }
