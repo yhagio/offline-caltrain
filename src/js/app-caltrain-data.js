@@ -153,7 +153,7 @@ CaltrainData.prototype.insertData = function() {
   var filePathName = null;
 
   GTFSfiles.forEach(function(name, index) {
-    filePathName = '../gtfs/' + name + '.txt';
+    filePathName = '/dist/gtfs/' + name + '.txt';
     var table = self.db.getSchema().table(name);
 
     fetch(filePathName)

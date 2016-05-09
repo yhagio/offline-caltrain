@@ -2,16 +2,16 @@ var STATIC_CACHE_NAME = 'caltrain-1';
 
 this.addEventListener('install', function(event) {
   var urlsToCache = [
-    '/gtfs/agency.txt',
-    '/gtfs/calendar.txt',
-    '/gtfs/calendar_dates.txt',
-    '/gtfs/fare_attributes.txt',
-    '/gtfs/fare_rules.txt',
-    '/gtfs/routes.txt',
-    '/gtfs/shapes.txt',
-    '/gtfs/stop_times.txt',
-    '/gtfs/stops.txt',
-    '/gtfs/trips.txt',
+    '/dist/gtfs/agency.txt',
+    '/dist/gtfs/calendar.txt',
+    '/dist/gtfs/calendar_dates.txt',
+    '/dist/gtfs/fare_attributes.txt',
+    '/dist/gtfs/fare_rules.txt',
+    '/dist/gtfs/routes.txt',
+    '/dist/gtfs/shapes.txt',
+    '/dist/gtfs/stop_times.txt',
+    '/dist/gtfs/stops.txt',
+    '/dist/gtfs/trips.txt',
     'https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css',
     'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.8/lovefield.min.js'
@@ -21,16 +21,16 @@ this.addEventListener('install', function(event) {
     // Add cache the urls from urlsToCache
     caches.open(STATIC_CACHE_NAME).then(function(cache) {
       return cache.addAll([
-        '/gtfs/agency.txt',
-        '/gtfs/calendar.txt',
-        '/gtfs/calendar_dates.txt',
-        '/gtfs/fare_attributes.txt',
-        '/gtfs/fare_rules.txt',
-        '/gtfs/routes.txt',
-        '/gtfs/shapes.txt',
-        '/gtfs/stop_times.txt',
-        '/gtfs/stops.txt',
-        '/gtfs/trips.txt',
+        '/dist/gtfs/agency.txt',
+        '/dist/gtfs/calendar.txt',
+        '/dist/gtfs/calendar_dates.txt',
+        '/dist/gtfs/fare_attributes.txt',
+        '/dist/gtfs/fare_rules.txt',
+        '/dist/gtfs/routes.txt',
+        '/dist/gtfs/shapes.txt',
+        '/dist/gtfs/stop_times.txt',
+        '/dist/gtfs/stops.txt',
+        '/dist/gtfs/trips.txt',
         'https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css',
         'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.8/lovefield.min.js'
