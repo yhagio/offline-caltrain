@@ -226,7 +226,6 @@ CaltrainData.prototype.searchSchedule = function(departure, arrival) {
   // Trips     <== (service_id) ==>   CalendarDates
   // Trips     <== (service_id) ==>   Calendar
 
-  console.log('searchSchedule:', departure, arrival);
   var Stops = this.stops;
   var StopTimes = this.stop_times;
   var Trips = this.trips;

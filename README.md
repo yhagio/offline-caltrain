@@ -1,5 +1,8 @@
 # Offline first transportation schedule web app for mobile & desktop
 
+[DEMO](http://yhagio.github.io/offline-caltrain/dist/)
+![Screenshot](/screenshot.png)
+
 ### Requirement
 - Allows users to select a departure and arrival trainstation
 - See a list of trains times, and durations
@@ -36,6 +39,6 @@
 - [X] Save Caltrain data to IndexedDB via Lovefied
 - [X] Retrieve the data for stops for users to select
 - [X] Search the trip & display the result
-- [ ] Styling
+- [X] Styling
 
 

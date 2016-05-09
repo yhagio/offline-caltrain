@@ -12,6 +12,7 @@ this.addEventListener('install', function(event) {
     '/gtfs/stop_times.txt',
     '/gtfs/stops.txt',
     '/gtfs/trips.txt',
+    'https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css',
     'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.8/lovefield.min.js'
   ];
@@ -30,6 +31,7 @@ this.addEventListener('install', function(event) {
         '/gtfs/stop_times.txt',
         '/gtfs/stops.txt',
         '/gtfs/trips.txt',
+        'https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css',
         'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.8/lovefield.min.js'
       ]);
