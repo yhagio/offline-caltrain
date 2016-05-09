@@ -1,6 +1,6 @@
 # Offline first transportation schedule web app for mobile & desktop
 
-[DEMO](http://yhagio.github.io/offline-caltrain/dist/)
+* To enable service worker, it needs to run via https, so I cannot not have this demo run on github page. You can check locally as following the steps below.
 ![Screenshot](/screenshot.png)
 
 ### Requirement
@@ -10,12 +10,14 @@
 - Use an API or a GTFS file for the data for the public transportation
 - If the application is online, your schedule should reflect real-time transit data, informing the user of any delays they may encounter.
 
-**How to run this app:**
-- Clone this repo
-- On terminal, run `npm install`
-- Install npm package `http-server` to run (`npm i -g http-server`).
-- On terminal, run `gulp` and run `cd dist && http-server` on another tab 
-- Visit `http://localhost:8080/`
+**How to run this app locally:**
+- Clone this repo `git clone git@github.com:yhagio/offline-caltrain.git`
+- Get in the app repo `cd offline-caltrain`
+- Run `npm install`
+- Also, install npm package `http-server` to run (`npm i -g http-server`)
+- Run `gulp`, and run `cd dist && http-server` on another tab 
+- Then visit `http://localhost:8080/`
+- If you want to remove the data in indexeddb from your browser, run `indexedDB.deleteDatabase('caltrain')` on your browser console
 
 ### Resources
 - [GTFS Diagram](https://upload.wikimedia.org/wikipedia/commons/2/28/GTFS_class_diagram.svg)
