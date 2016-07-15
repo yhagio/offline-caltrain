@@ -61,22 +61,6 @@ CaltrainData.prototype.buildSchema = function() {
     addColumn('exception_type', lf.Type.INTEGER).
     addPrimaryKey(['service_id']);
 
-  // schemaBuilder.createTable('fare_attributes').
-  //   addColumn('fare_id', lf.Type.STRING).
-  //   addColumn('price', lf.Type.INTEGER).
-  //   addColumn('currency_type', lf.Type.STRING).
-  //   addColumn('payment_method', lf.Type.INTEGER).
-  //   addColumn('transfers', lf.Type.INTEGER).
-  //   addColumn('transfer_duration', lf.Type.INTEGER). // Blank in file
-  //   addPrimaryKey(['fare_id']);
-
-  // schemaBuilder.createTable('fare_rules').
-  //   addColumn('fare_id', lf.Type.STRING).
-  //   addColumn('route_id', lf.Type.STRING).
-  //   addColumn('origin_id', lf.Type.INTEGER).
-  //   addColumn('destination_id', lf.Type.INTEGER).
-  //   addPrimaryKey(['fare_id']);
-
   schemaBuilder.createTable('routes').
     addColumn('route_id', lf.Type.STRING).
     addColumn('route_short_name', lf.Type.STRING).
@@ -84,14 +68,6 @@ CaltrainData.prototype.buildSchema = function() {
     addColumn('route_type', lf.Type.INTEGER).
     addColumn('route_color', lf.Type.STRING).
     addPrimaryKey(['route_id']);
-
-  // schemaBuilder.createTable('shapes').
-  //   addColumn('shape_id', lf.Type.STRING).
-  //   addColumn('shape_pt_lat', lf.Type.STRING).
-  //   addColumn('shape_pt_lon', lf.Type.STRING).
-  //   addColumn('shape_pt_sequence', lf.Type.INTEGER).
-  //   addColumn('shape_dist_traveled', lf.Type.INTEGER). // Blank in file
-  //   addPrimaryKey(['shape_id']);
 
   schemaBuilder.createTable('stop_times').
     addColumn('trip_id', lf.Type.STRING).
@@ -141,10 +117,6 @@ CaltrainData.prototype.insertData = function() {
   var GTFSfiles = [
     'calendar',
     'calendar_dates',
-    // 'fare_attributes',
-    // 'fare_rules',
-    // 'routes',
-    // 'shapes',
     'stop_times',
     'stops',
     'trips'

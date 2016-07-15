@@ -2,13 +2,9 @@ var STATIC_CACHE_NAME = 'caltrain-1';
 
 this.addEventListener('install', function(event) {
   var urlsToCache = [
-    '/gtfs/agency.txt',
     '/gtfs/calendar.txt',
     '/gtfs/calendar_dates.txt',
-    '/gtfs/fare_attributes.txt',
-    '/gtfs/fare_rules.txt',
     '/gtfs/routes.txt',
-    '/gtfs/shapes.txt',
     '/gtfs/stop_times.txt',
     '/gtfs/stops.txt',
     '/gtfs/trips.txt',
@@ -21,13 +17,9 @@ this.addEventListener('install', function(event) {
     // Add cache the urls from urlsToCache
     caches.open(STATIC_CACHE_NAME).then(function(cache) {
       return cache.addAll([
-        '/gtfs/agency.txt',
         '/gtfs/calendar.txt',
         '/gtfs/calendar_dates.txt',
-        '/gtfs/fare_attributes.txt',
-        '/gtfs/fare_rules.txt',
         '/gtfs/routes.txt',
-        '/gtfs/shapes.txt',
         '/gtfs/stop_times.txt',
         '/gtfs/stops.txt',
         '/gtfs/trips.txt',
