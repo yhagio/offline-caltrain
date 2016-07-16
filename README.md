@@ -15,11 +15,11 @@
 git clone git@github.com:yhagio/offline-caltrain.git
 cd offline-caltrain
 npm install
-npm i -g http-server
 gulp
-cd dist && http-server
 ```
-Then visit `http://localhost:8080/`
+To use `console.log()` make 
+`var DEVELOPMENT = true;` instead of `false` in `./src/js/application.js`
+
 
 - If you want to remove the data in indexeddb from your browser, run `indexedDB.deleteDatabase('caltrain')` on your browser console
 
@@ -49,3 +49,7 @@ Then visit `http://localhost:8080/`
 
 ##### Update (July 16, 2016)
 - Installed [browsersync](https://www.browsersync.io/), integrated with gulp
+- Removed unused files and codes
+- Refactored javascript
+- Modified CSS
+- Added loading message
