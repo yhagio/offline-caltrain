@@ -12,6 +12,13 @@ gulp.task('move-gtfs-files', function() {
     .pipe(gulp.dest('./dist/gtfs'));
 });
 
+// Minify sw.js
+gulp.task('minify-sw', function() {
+  gulp.src('./src/sw.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist'));
+});
+
 // Minify CSS
 gulp.task('minify-css', function() {
   gulp.src('./src/css/*.css')
@@ -26,21 +33,12 @@ gulp.task('minify-css', function() {
 gulp.task('minify-js', function() {
   gulp.src(/*'./src/js/*.js'*/ 
     ['./src/js/index.js',
-    './src/js/helpers.js',
-    './src/js/indexeddb.js',
-    './src/js/app-caltrain-data.js',
-    './src/js/app-handlers.js'])
+    './src/js/application.js'])
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('./dist/js'))
     .pipe(rename('bundle.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/js'));
-});
-
-gulp.task('minify-sw', function() {
-  gulp.src('./src/sw.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('./dist'));
 });
 
 // Minify HTML
@@ -67,7 +65,7 @@ gulp.task('reload', function () {
 
 // Default
 gulp.task('default', ['minify-css', 'minify-js', 'minify-sw', 'minify-html', 'move-gtfs-files', 'browser-sync', 'reload'], function() {
-  
+
   gulp.watch(['./src/gtfs/*.txt'], ['move-gtfs-files', 'reload']);
   gulp.watch(['./src/index.html'], ['minify-html', 'reload']);
   gulp.watch(['./src/js/*.js'], ['minify-js', 'reload']);

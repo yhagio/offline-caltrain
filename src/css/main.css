@@ -11,6 +11,7 @@ html, body {
 
 table {
   margin: auto;
+  margin-bottom: 30px;
 }
 
 label {
@@ -39,4 +40,14 @@ table td {
 
 .error-msg {
   color: red;
+}
+
+.loading-status-blue {
+  color: cornflowerblue;
+  font-size: 26px;
+}
+
+.loading-status-red {
+  color: red;
+  font-size: 20px;
 }
