@@ -11,7 +11,7 @@ CT.getDBConnection()
         displayStopsSelection(stops); 
       })
       .catch(function(error) {
-        console.log('stops retrieving errors: ', error);
+        console.log('Stops retrieving errors: ', error);
       });
     }, 200);
 

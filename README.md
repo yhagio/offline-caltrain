@@ -11,12 +11,16 @@
 - If the application is online, your schedule should reflect real-time transit data, informing the user of any delays they may encounter.
 
 **How to run this app locally:**
-- Clone this repo `git clone git@github.com:yhagio/offline-caltrain.git`
-- Get in the app repo `cd offline-caltrain`
-- Run `npm install`
-- Also, install npm package `http-server` to run (`npm i -g http-server`)
-- Run `gulp`, and run `cd dist && http-server` on another tab 
-- Then visit `http://localhost:8080/`
+```
+git clone git@github.com:yhagio/offline-caltrain.git
+cd offline-caltrain
+npm install
+npm i -g http-server
+gulp
+cd dist && http-server
+```
+Then visit `http://localhost:8080/`
+
 - If you want to remove the data in indexeddb from your browser, run `indexedDB.deleteDatabase('caltrain')` on your browser console
 
 ### Resources
@@ -43,4 +47,5 @@
 - [X] Search the trip & display the result
 - [X] Styling
 
-
+##### Update (July 16, 2016)
+- Installed [browsersync](https://www.browsersync.io/), integrated with gulp

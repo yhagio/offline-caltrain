@@ -36,7 +36,7 @@ CaltrainData.prototype.onConnected = function() {
   this.stops = this.db.getSchema().table('stops');
   this.trips = this.db.getSchema().table('trips');
 
-  console.log('DB connection established');
+  console.log('DB connection established!');
 }
 
 CaltrainData.prototype.buildSchema = function() {
@@ -105,7 +105,7 @@ CaltrainData.prototype.buildSchema = function() {
     addColumn('bikes_allowed', lf.Type.INTEGER).
     addPrimaryKey(['route_id', 'service_id', 'trip_id']);
 
-  console.log('Schema created');
+  console.log('Schema created!!');
   return schemaBuilder;
 };
 

@@ -4,7 +4,7 @@
   "description": "### Important GTFS files are too large to be uploaded to Github, so please [download all the GTFS files](http://www.stm.info/sites/default/files/gtfs/gtfs_stm.zip) and place them in `src/stm-files` locally to run locally.",
   "main": "Gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": ""
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/yhagio/offline-stm-schedule#readme",
   "devDependencies": {
+    "browser-sync": "^2.13.0",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.6",
     "gulp-concat": "^2.6.0",

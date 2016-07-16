@@ -4,6 +4,7 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var minifyHTML = require('gulp-minify-html');
+var browserSync = require('browser-sync').create();
 
 // Move GTFS files
 gulp.task('move-gtfs-files', function() {
@@ -49,13 +50,28 @@ gulp.task('minify-html', function() {
     .pipe(gulp.dest('./dist'));
 });
 
+// Static server
+gulp.task('browser-sync', function() {
+  browserSync.init({
+    server: {
+      baseDir: "./dist"
+    }
+  });
+});
+
+// Reload task
+gulp.task('reload', function () {
+  browserSync.reload();
+});
+
+
 // Default
-gulp.task('default', ['minify-css', 'minify-js', 'minify-sw', 'minify-html', 'move-gtfs-files'], function() {
+gulp.task('default', ['minify-css', 'minify-js', 'minify-sw', 'minify-html', 'move-gtfs-files', 'browser-sync', 'reload'], function() {
   
-  gulp.watch(['./src/gtfs/*.txt'], ['move-gtfs-files']);
-  gulp.watch(['./src/index.html'], ['minify-html']);
-  gulp.watch(['./src/js/*.js'], ['minify-js']);
-  gulp.watch(['./src/sw.js'], ['minify-sw']);
-  gulp.watch(['./src/css/*.css'], ['minify-css']);
+  gulp.watch(['./src/gtfs/*.txt'], ['move-gtfs-files', 'reload']);
+  gulp.watch(['./src/index.html'], ['minify-html', 'reload']);
+  gulp.watch(['./src/js/*.js'], ['minify-js', 'reload']);
+  gulp.watch(['./src/sw.js'], ['minify-sw', 'reload']);
+  gulp.watch(['./src/css/*.css'], ['minify-css', 'reload']);
 
 });
