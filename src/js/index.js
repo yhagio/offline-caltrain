@@ -1,4 +1,4 @@
-//make sure that Service Workers are supported.
+// make sure that Service Workers are supported.
 if (navigator.serviceWorker) {
   navigator.serviceWorker.register('/sw.js', {scope: '/'})
     .then(function (registration) {

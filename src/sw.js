@@ -1,6 +1,6 @@
 var STATIC_CACHE_NAME = 'caltrain-1';
 
-this.addEventListener('install', function(event) {
+this.addEventListener('install', function (event) {
   var urlsToCache = [
     '/js/bundle.min.js',
     '/css/bundle.min.css',
@@ -12,24 +12,23 @@ this.addEventListener('install', function(event) {
 
   event.waitUntil(
     // Add cache the urls from urlsToCache
-    caches.open(STATIC_CACHE_NAME).then(function(cache) {
+    caches.open(STATIC_CACHE_NAME).then(function (cache) {
       return cache.addAll(urlsToCache);
     })
   );
 });
 
-
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', function (event) {
   event.waitUntil(
     // Remove the old cache
-    caches.keys().then(function(cacheNames) {
+    caches.keys().then(function (cacheNames) {
       return Promise.all(
-        cacheNames.filter(function(cacheName) {
+        cacheNames.filter(function (cacheName) {
           return cacheName.startsWith('stm-data-') &&
-                 cacheName != STATIC_CACHE_NAME;
+                 cacheName !== STATIC_CACHE_NAME;
           // Return true if you want to remove this cache,
           // but caches are shared across the whole origin
-        }).map(function(cacheName) {
+        }).map(function (cacheName) {
           return caches.delete(cacheName);
         })
       );
@@ -37,13 +36,11 @@ self.addEventListener('activate', function(event) {
   );
 });
 
-
-this.addEventListener('fetch', function(event) {
-
+this.addEventListener('fetch', function (event) {
   event.respondWith(
     // Respond with an entry from the cache if there is one.
     // If there isn't, fetch from the network.
-    caches.match(event.request).then(function(response) {
+    caches.match(event.request).then(function (response) {
       if (response) return response;
       return fetch(event.request);
     })

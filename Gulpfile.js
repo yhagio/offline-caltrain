@@ -7,20 +7,20 @@ var minifyHTML = require('gulp-minify-html');
 var browserSync = require('browser-sync').create();
 
 // Move GTFS files
-gulp.task('move-gtfs-files', function() {
+gulp.task('move-gtfs-files', function () {
   gulp.src('./src/gtfs/*.txt')
     .pipe(gulp.dest('./dist/gtfs'));
 });
 
 // Minify sw.js
-gulp.task('minify-sw', function() {
+gulp.task('minify-sw', function () {
   gulp.src('./src/sw.js')
     .pipe(uglify())
     .pipe(gulp.dest('./dist'));
 });
 
 // Minify CSS
-gulp.task('minify-css', function() {
+gulp.task('minify-css', function () {
   gulp.src('./src/css/*.css')
     .pipe(concat('bundle.css'))
     .pipe(gulp.dest('./dist/css'))
@@ -30,8 +30,8 @@ gulp.task('minify-css', function() {
 });
 
 // Minify JavaScript
-gulp.task('minify-js', function() {
-  gulp.src(/*'./src/js/*.js'*/ 
+gulp.task('minify-js', function () {
+  gulp.src(
     ['./src/js/index.js',
     './src/js/application.js'])
     .pipe(concat('bundle.js'))
@@ -42,17 +42,17 @@ gulp.task('minify-js', function() {
 });
 
 // Minify HTML
-gulp.task('minify-html', function() {
+gulp.task('minify-html', function () {
   gulp.src('./src/index.html')
     .pipe(minifyHTML())
     .pipe(gulp.dest('./dist'));
 });
 
 // Static server
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', function () {
   browserSync.init({
     server: {
-      baseDir: "./dist"
+      baseDir: './dist'
     }
   });
 });
@@ -64,12 +64,10 @@ gulp.task('reload', function () {
 
 
 // Default
-gulp.task('default', ['minify-css', 'minify-js', 'minify-sw', 'minify-html', 'move-gtfs-files', 'browser-sync', 'reload'], function() {
-
+gulp.task('default', ['minify-css', 'minify-js', 'minify-sw', 'minify-html', 'move-gtfs-files', 'browser-sync', 'reload'], function () {
   gulp.watch(['./src/gtfs/*.txt'], ['move-gtfs-files', 'reload']);
   gulp.watch(['./src/index.html'], ['minify-html', 'reload']);
   gulp.watch(['./src/js/*.js'], ['minify-js', 'reload']);
   gulp.watch(['./src/sw.js'], ['minify-sw', 'reload']);
   gulp.watch(['./src/css/*.css'], ['minify-css', 'reload']);
-
 });
