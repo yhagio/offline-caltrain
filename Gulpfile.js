@@ -1,3 +1,7 @@
+/** 
+THIS FILE IS NO LONGER USED since this is
+replaced with Webpack (^_^)v
+
 var gulp = require('gulp');
 var minifyCss = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
@@ -71,3 +75,5 @@ gulp.task('default', ['minify-css', 'minify-js', 'minify-sw', 'minify-html', 'mo
   gulp.watch(['./src/sw.js'], ['minify-sw', 'reload']);
   gulp.watch(['./src/css/*.css'], ['minify-css', 'reload']);
 });
+
+**/

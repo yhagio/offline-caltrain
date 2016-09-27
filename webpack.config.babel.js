@@ -16,9 +16,6 @@ module.exports = env => {
     context: resolve('src'),
 
     entry: {
-      // app: ['./js/index.js', './js/application.js'],
-      // sw: './sw.js',
-
       app: ['./js/application.js'],
       vendor: ['lovefield', 'jquery']
     },

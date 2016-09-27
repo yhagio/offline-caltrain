@@ -46,6 +46,11 @@ To use `console.log()` make
 - [X] Retrieve the data for stops for users to select
 - [X] Search the trip & display the result
 - [X] Styling
+- [X] ESlint
+- [X] Replace Gulp with Webpack for build process
+- [ ] Remove pure-css and add SASS 
+- [ ] Cross Browser Testing (Chrome, Firefox, Safari, Opera, IE)
+- [ ] ES2015, 2016
 
 ##### Update (July 16, 2016)
 - Installed [browsersync](https://www.browsersync.io/), integrated with gulp

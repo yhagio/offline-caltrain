@@ -1,3 +1,7 @@
+/**
+THIS FILE IS NO LONGER USED since this is
+replaced with Webpack + Offline Plugin.
+
 var STATIC_CACHE_NAME = 'caltrain-1';
 
 this.addEventListener('install', function (event) {
@@ -46,3 +50,5 @@ this.addEventListener('fetch', function (event) {
     })
   );
 });
+
+ **/
