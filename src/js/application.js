@@ -1,8 +1,13 @@
 /* global lf:true */
 /* eslint no-undef: "error" */
 
+require('../css/main.scss');
+
 (function () {
   'use strict';
+  if (process.env.NODE_ENV === 'production') {
+    require('offline-plugin/runtime').install();
+  }
 
   // Turn on/off for 'console.log'
   var DEVELOPMENT = true;

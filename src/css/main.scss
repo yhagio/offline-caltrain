@@ -1,5 +1,10 @@
+$grey: #AAAAAA;
+$black: #333333;
+$darkred: #8B0000;
+$cornflowerblue: #6495ED;
+
 html, body {
-  font-family: Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .container {
@@ -21,7 +26,7 @@ label {
 table,
 table th,
 table td {
-  border: 1px solid #aaa;
+  border: 1px solid $grey;
 }
 
 .result-box {
@@ -39,15 +44,15 @@ table td {
 }
 
 .error-msg {
-  color: red;
+  color: $darkred;
 }
 
 .loading-status-blue {
-  color: cornflowerblue;
+  color: $cornflowerblue;
   font-size: 26px;
 }
 
 .loading-status-red {
-  color: red;
+  color: $darkred;
   font-size: 20px;
 }
