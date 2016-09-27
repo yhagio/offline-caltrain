@@ -5,6 +5,7 @@ require('../styles/style.scss');
 
 (function () {
   'use strict';
+
   if (process.env.NODE_ENV === 'production') {
     require('offline-plugin/runtime').install();
   }

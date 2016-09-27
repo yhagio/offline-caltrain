@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "jquery": "^3.1.1",
-    "lovefield": "^2.1.10"
+    "lovefield": "^2.1.10",
+    "whatwg-fetch": "^1.0.0"
   }
 }

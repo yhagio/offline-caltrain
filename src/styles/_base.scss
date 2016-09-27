@@ -14,10 +14,11 @@ label {
 
 select {
   -webkit-appearance: menulist-button;
-  -moz-appearance: menulist-button;;
-  appearance: menulist-button;;
+  // -moz-appearance: menulist-button;;
+  // appearance: menulist-button;;
   height: 45px;
-  font-size: 1.2e;
+  font-size: 1.2em;
+  padding: 5px;
 }
 
 table {

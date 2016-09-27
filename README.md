@@ -1,6 +1,12 @@
 # Offline first transportation schedule web app for mobile & desktop
 
-* To enable service worker, it needs to run via https, so I cannot not have this demo run on github page. You can check locally as following the steps below.
+## Browsers support <sub><sup><sub><sub>made by @godban</sub></sub></sup></sub>
+
+| [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png" alt="Firefox" width="16px" height="16px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome.png" alt="Chrome" width="16px" height="16px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari.png" alt="Safari" width="16px" height="16px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/opera.png" alt="Opera" width="16px" height="16px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
+| --------- | --------- | --------- | --------- |
+| last version| last version| last version| last version
+
+
 ![Screenshot](/screenshot.png)
 
 ### Requirement
@@ -48,7 +54,7 @@ To use `console.log()` make
 - [X] Styling
 - [X] ESlint
 - [X] Replace Gulp with Webpack for build process
-- [ ] Remove pure-css and add SASS 
+- [X] Remove pure-css and add SASS 
 - [ ] Cross Browser Testing (Chrome, Firefox, Safari, Opera, IE)
 - [ ] ES2015, 2016
 
@@ -58,3 +64,19 @@ To use `console.log()` make
 - Refactored javascript
 - Modified CSS
 - Added loading message
+
+#### Build
+```
+npm run build:dev // Development
+npm run build // Production
+```
+
+#### Testing in Virtual Machine (i.e. Microsoft Azure > IE)
+```
+npm run start
+```
+in another terminal tab  (using Ngrok)
+```
+npm i -g ngrok
+cd dist && ngrok http 8080
+```
