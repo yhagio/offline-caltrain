@@ -1,0 +1,28 @@
+.container {
+  padding: 10px;
+  text-align: center;
+  max-width: 400px;
+  margin: auto;
+}
+
+.result-box {
+  margin-top: 30px;
+}
+
+.result-box,
+.no-result {
+  display: none;
+}
+
+.result-box.show,
+.no-result.show {
+  display: block;
+}
+
+.error-msg {
+  color: $darkred;
+}
+
+.full-width {
+  width: 100%;
+}

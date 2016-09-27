@@ -12,7 +12,8 @@
     "prebuild:dev": "rimraf dist",
     "build:dev": "webpack --env.dev",
     "postbuild:dev": "cp -R src/gtfs dist/gtfs",
-    "start": "http-server dist"
+    "start": "http-server dist",
+    "dev": "webpack-dev-server --env.dev"
   },
   "repository": {
     "type": "git",

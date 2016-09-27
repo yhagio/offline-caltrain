@@ -1,0 +1,27 @@
+.search-form {
+
+}
+
+.inputs-area {
+
+}
+
+.input-box {
+  margin: 10px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+}
+
+.search-form button {
+  width: 95%;
+  height: 45px;
+  font-size: 1.3em;
+  border: none;
+
+  &.blue-button {
+    background: $cornflowerblue;
+  }
+}

@@ -1,7 +1,7 @@
 /* global lf:true */
 /* eslint no-undef: "error" */
 
-require('../css/main.scss');
+require('../styles/style.scss');
 
 (function () {
   'use strict';

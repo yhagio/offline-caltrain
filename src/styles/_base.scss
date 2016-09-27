@@ -1,0 +1,35 @@
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+label {
+  float: left;
+}
+
+select {
+  -webkit-appearance: menulist-button;
+  -moz-appearance: menulist-button;;
+  appearance: menulist-button;;
+  height: 45px;
+  font-size: 1.2e;
+}
+
+table {
+  border: 1px solid $grey;
+}
+
+thead {
+  background-color: $lightgrey;
+}
+
+table th,
+table td {
+  border-bottom: 1px solid $grey;
+  padding: 5px;
+}
