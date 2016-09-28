@@ -4,13 +4,20 @@ const webpackEnv = { test: true };
 const webpackConfig = require('./webpack.config.babel')(webpackEnv);
 
 const testGlob = 'test/*.test.js';
-const srcGlob = 'test/!(*.test|*.stub).js';
+const srcGlob = 'src/js/!(*.test|*.stub).js';
 
 module.exports = (config) => {
   config.set({
     basePath: '',
     frameworks: ['mocha', 'chai'],
-    files: [testGlob, srcGlob],
+    files: [
+      'node_modules/bluebird/js/browser/bluebird.core.min.js',
+      'node_modules/bluebird/js/browser/bluebird.min.js',
+      'node_modules/whatwg-fetch/fetch.js',
+      'node_modules/jquery/dist/jquery.min.js',
+      'node_modules/lovefield/dist/lovefield.min.js',
+      testGlob,
+      srcGlob],
     exclude: [''],
     preprocessors: {
       [testGlob]: ['webpack'],

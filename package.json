@@ -14,7 +14,7 @@
     "postbuild:dev": "cp -R src/gtfs dist/gtfs",
     "start": "http-server dist",
     "dev": "webpack-dev-server --env.dev",
-    "test": "karma start"
+    "test": "karma start --require test/mocha.opts"
   },
   "repository": {
     "type": "git",
@@ -48,6 +48,8 @@
     "html-webpack-plugin": "^2.22.0",
     "http-server": "^0.9.0",
     "inline-manifest-webpack-plugin": "^3.0.1",
+    "jsdom": "^9.5.0",
+    "jsdom-global": "^2.1.0",
     "karma": "^1.3.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.0.0",

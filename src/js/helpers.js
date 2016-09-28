@@ -1,6 +1,7 @@
 /**
  * Helper functions
  */
+
 function hhmmssToSeconds(time) {
   const t = time.split(':');
   const hour = parseInt(t[0], 10);
@@ -25,37 +26,6 @@ function sortSchedules(a, b) {
     return -1;
   }
   return 0;
-}
-
-function resetSearchResults() {
-  // Reset Search Result
-  $('#search-result').empty();
-  // Reset Error
-  $('#error').empty();
-  // Hide no-result
-  if ($('#noresult').hasClass('show')) {
-    $('#noresult').removeClass('show');
-  }
-}
-
-function displayResultError() {
-  // Diplay the error
-  $('#error').append('<p class="error-msg">Arrival station must be different</p>');
-  // Erase search result
-  $('#search-result').empty();
-  // Hide Search result table
-  if ($('#noresult').hasClass('show')) {
-    $('#noresult').removeClass('show');
-  }
-}
-
-function displayTopMessage(message, color) {
-  $('#loading-status')
-    .append(`<p class="loading-status-${color}">${message}</p>`);
-}
-
-function removeTopMessage() {
-  $('#loading-status').empty();
 }
 
 // Remove starting & ending quotation marks of a string if exists
@@ -112,10 +82,6 @@ function formatDate(date) {
 export {
   getDuration,
   sortSchedules,
-  resetSearchResults,
-  displayResultError,
-  displayTopMessage,
-  removeTopMessage,
   hhmmssToSeconds,
   removeQuotations,
   whatDayIsToday,

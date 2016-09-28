@@ -71,7 +71,12 @@ npm run build:dev // Development
 npm run build // Production
 ```
 
-#### Testing in Virtual Machine (i.e. Microsoft Azure > IE)
+#### Run 
+```
+npm run start
+```
+
+#### Launching in Virtual Machine (i.e. Microsoft Azure > IE)
 ```
 npm run start
 ```
@@ -79,4 +84,10 @@ in another terminal tab  (using Ngrok)
 ```
 npm i -g ngrok
 cd dist && ngrok http 8080
+```
+
+#### Test 
+Testing with Chrome, Firefox, Safari, Opera
+```
+npm run test 
 ```

@@ -6,10 +6,6 @@
 import {
   getDuration,
   sortSchedules,
-  resetSearchResults,
-  displayResultError,
-  displayTopMessage,
-  removeTopMessage,
   removeQuotations,
   whatDayIsToday,
   formatDate,
@@ -274,6 +270,40 @@ CaltrainData.prototype.searchSchedule = function (departure, arrival) {
 };
 
 /**
+ * DOM modification
+ */
+function resetSearchResults() {
+  // Reset Search Result
+  $('#search-result').empty();
+  // Reset Error
+  $('#error').empty();
+  // Hide no-result
+  if ($('#noresult').hasClass('show')) {
+    $('#noresult').removeClass('show');
+  }
+}
+
+function displayResultError() {
+  // Diplay the error
+  $('#error').append('<p class="error-msg">Arrival station must be different</p>');
+  // Erase search result
+  $('#search-result').empty();
+  // Hide Search result table
+  if ($('#noresult').hasClass('show')) {
+    $('#noresult').removeClass('show');
+  }
+}
+
+function displayTopMessage(message, color) {
+  $('#loading-status')
+    .append(`<p class="loading-status-${color}">${message}</p>`);
+}
+
+function removeTopMessage() {
+  $('#loading-status').empty();
+}
+
+/**
  * Application Controller Logics
  */
 
@@ -286,6 +316,10 @@ function displayStopsSelection(stops) {
 
 function displayResultList(data, departureStop) {
   // Organize Departure to Arrival station
+  console.log('DATA', data);
+  console.log('Dep', departureStop);
+  debugger;
+
   const schedules = [];
   let departureData = null;
   let arrivalData = null;
@@ -387,3 +421,12 @@ CT.getDBConnection()
         });
     });
   });
+
+export {
+  resetSearchResults,
+  displayResultError,
+  displayTopMessage,
+  removeTopMessage,
+  displayStopsSelection,
+  displayResultList,
+};
