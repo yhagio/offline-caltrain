@@ -316,10 +316,6 @@ function displayStopsSelection(stops) {
 
 function displayResultList(data, departureStop) {
   // Organize Departure to Arrival station
-  console.log('DATA', data);
-  console.log('Dep', departureStop);
-  debugger;
-
   const schedules = [];
   let departureData = null;
   let arrivalData = null;
