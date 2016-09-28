@@ -7,6 +7,7 @@ import {
   removeTopMessage,
   displayStopsSelection,
   displayResultList,
+  CaltrainData,
 } from '../src/js/application';
 
 
@@ -151,6 +152,20 @@ describe('[Application]', () => {
     displayResultList(data, departureStop, () => {
       expect($('#search-result').length).to.equal(0);
       expect($('#noresult').hasClass('show')).to.be.true;
+    });
+  });
+
+  it('CaltrainData.prototype.getDBConnection works', () => {
+    const newData = new CaltrainData();
+    newData.getDBConnection(function() {
+      expect(this.db).to.exist;
+    });
+  });
+
+  it('CaltrainData.prototype.getDBConnection promise', () => {
+    const newData = new CaltrainData();
+    newData.getDBConnection().then(function(db) {
+      expect(this.db).to.equal(db);
     });
   });
 });

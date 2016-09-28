@@ -425,4 +425,5 @@ export {
   removeTopMessage,
   displayStopsSelection,
   displayResultList,
+  CaltrainData,
 };
