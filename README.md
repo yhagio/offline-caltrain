@@ -89,5 +89,5 @@ cd dist && ngrok http 8080
 #### Test 
 Testing with Chrome, Firefox, Safari, Opera
 ```
-npm run test 
+npm run test
 ```

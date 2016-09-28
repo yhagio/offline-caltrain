@@ -14,7 +14,7 @@
     "postbuild:dev": "cp -R src/gtfs dist/gtfs",
     "start": "http-server dist",
     "dev": "webpack-dev-server --env.dev",
-    "test": "karma start --require test/mocha.opts"
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
