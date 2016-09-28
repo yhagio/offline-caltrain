@@ -4,7 +4,7 @@
   "description": "Offline first Caltrain schedule finder",
   "main": "Gulpfile.js",
   "scripts": {
-    "lint": "eslint src/.; exit 0",
+    "lint": "eslint src/js/.; exit 0",
     "fix": "eslint --fix src/.; exit 0",
     "prebuild": "rimraf dist",
     "build": "webpack --env.prod -p",
@@ -35,8 +35,12 @@
     "browser-sync": "^2.13.0",
     "css-loader": "^0.25.0",
     "eslint": "^3.6.0",
+    "eslint-config-airbnb": "^12.0.0",
     "eslint-config-standard": "^6.0.1",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-react": "^6.3.0",
     "eslint-plugin-standard": "^2.0.0",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "gulp": "^3.9.1",
@@ -64,6 +68,7 @@
     "webpack-validator": "^2.2.7"
   },
   "dependencies": {
+    "bluebird": "^3.4.6",
     "jquery": "^3.1.1",
     "lovefield": "^2.1.10",
     "whatwg-fetch": "^1.0.0"

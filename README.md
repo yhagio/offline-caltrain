@@ -55,8 +55,8 @@ To use `console.log()` make
 - [X] ESlint
 - [X] Replace Gulp with Webpack for build process
 - [X] Remove pure-css and add SASS 
-- [ ] Cross Browser Testing (Chrome, Firefox, Safari, Opera, IE)
-- [ ] ES2015, 2016
+- [X] Cross Browser Testing (Chrome, Firefox, Safari, Opera)
+- [X] ES2015 + Babel
 
 ##### Update (July 16, 2016)
 - Installed [browsersync](https://www.browsersync.io/), integrated with gulp

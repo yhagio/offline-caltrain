@@ -17,7 +17,7 @@ module.exports = env => {
 
     entry: {
       app: ['./js/application.js'],
-      vendor: ['lovefield', 'jquery', 'whatwg-fetch']
+      vendor: ['lovefield', 'jquery', 'whatwg-fetch', 'bluebird']
     },
 
     output: {
