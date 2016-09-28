@@ -67,8 +67,11 @@ describe('[Helpers]', () => {
 
   it('formatDate() formats a date to yyyymmdd', () => {
     const newDate = new Date(908500000);
-    const anotherDate = new Date(1005019995343);
     expect(formatDate(newDate)).to.equal('19700111');
+  });
+
+  it('formatDate() formats another date to yyyymmdd', () => {
+    const anotherDate = new Date(1005019995343);
     expect(formatDate(anotherDate)).to.equal('20011105');
   });
 });
