@@ -32,14 +32,14 @@ module.exports = env => {
       loaders: [
         {
           test: /\.js$/,
-          loaders: ['babel'],
+          loaders: ['babel-loader'],
           exclude: /node_modules/
         },
         {
           test: /\.scss$/,
           loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style',
-            loader: ['css', 'sass']
+            fallbackLoader: 'style-loader',
+            loader: ['css-loader', 'sass-loader']
           })
         }
       ]
