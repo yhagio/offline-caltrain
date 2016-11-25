@@ -13,15 +13,21 @@
     display: block;
     margin-bottom: 5px;
   }
+
+  &.selection {
+    background-color: $white;
+  }
 }
 
 .search-form button {
   width: 95%;
   height: 45px;
   font-size: 1.3em;
-  border: none;
+  border: 1px solid $cornflowerblue;
+  border-radius: 10px;
 
   &.blue-button {
-    background: $cornflowerblue;
+    background: $white;
+    color: $cornflowerblue;
   }
 }
